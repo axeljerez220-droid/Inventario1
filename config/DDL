@@ -1,0 +1,101 @@
+-- 1. Tabla Rol
+CREATE TABLE rol (
+    id_rol SERIAL PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    descripcion TEXT
+);
+
+-- 2. Tabla Ubicacion
+CREATE TABLE ubicacion (
+    id_ubicacion SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT
+);
+
+-- 3. Tabla Categoria
+CREATE TABLE categoria (
+    id_categoria SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT
+);
+
+-- 4. Tabla Usuario
+CREATE TABLE usuario (
+    id_usuario SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    contrasena VARCHAR(255) NOT NULL,
+    id_rol INT NOT NULL,
+    CONSTRAINT fk_usuario_rol FOREIGN KEY (id_rol) REFERENCES rol(id_rol) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- 5. Tabla Material
+CREATE TABLE material (
+    id_material SERIAL PRIMARY KEY,
+    nombre VARCHAR(150) NOT NULL,
+    descripcion TEXT,
+    cantidad INT NOT NULL DEFAULT 0,
+    estado VARCHAR(50) NOT NULL,
+    id_categoria INT NOT NULL,
+    id_ubicacion INT NOT NULL,
+    CONSTRAINT fk_material_categoria FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fk_material_ubicacion FOREIGN KEY (id_ubicacion) REFERENCES ubicacion(id_ubicacion) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- 6. Tabla Solicitud
+CREATE TABLE solicitud (
+    id_solicitud SERIAL PRIMARY KEY,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    estado VARCHAR(50) NOT NULL,
+    observaciones TEXT,
+    id_usuario INT NOT NULL,
+    CONSTRAINT fk_solicitud_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- 7. Tabla DetalleSolicitud
+CREATE TABLE detalle_solicitud (
+    id_detalle SERIAL PRIMARY KEY,
+    id_solicitud INT NOT NULL,
+    id_material INT NOT NULL,
+    cantidad_solicitada INT NOT NULL,
+    cantidad_entregada INT DEFAULT 0,
+    CONSTRAINT fk_detalle_solicitud FOREIGN KEY (id_solicitud) REFERENCES solicitud(id_solicitud) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_detalle_material FOREIGN KEY (id_material) REFERENCES material(id_material) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- 8. Tabla Movimiento
+CREATE TABLE movimiento (
+    id_movimiento SERIAL PRIMARY KEY,
+    tipo_movimiento VARCHAR(50) NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    cantidad INT NOT NULL,
+    observaciones TEXT,
+    id_material INT NOT NULL,
+    id_usuario INT NOT NULL,
+    CONSTRAINT fk_movimiento_material FOREIGN KEY (id_material) REFERENCES material(id_material) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fk_movimiento_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- 9. Tabla Reporte
+CREATE TABLE reporte (
+    id_reporte SERIAL PRIMARY KEY,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    tipo_problema VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    estado VARCHAR(50) NOT NULL,
+    id_usuario INT NOT NULL,
+    id_material INT NOT NULL,
+    CONSTRAINT fk_reporte_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_reporte_material FOREIGN KEY (id_material) REFERENCES material(id_material) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- 10. Tabla Notificacion
+CREATE TABLE notificacion (
+    id_notificacion SERIAL PRIMARY KEY,
+    mensaje TEXT NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    estado VARCHAR(50) NOT NULL,
+    id_usuario INT NOT NULL,
+    CONSTRAINT fk_notificacion_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE CASCADE ON UPDATE CASCADE
+);

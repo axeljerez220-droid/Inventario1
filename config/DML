@@ -1,0 +1,58 @@
+-- INSERCIONES DE DATOS
+
+-- 1. Roles
+INSERT INTO rol (nombre, descripcion) VALUES
+('Administrador', 'Personal encargado del laboratorio con acceso total para gestionar materiales y reportes'),
+('Docente', 'Docentes del área técnica con permisos para realizar solicitudes de insumos');
+
+-- 2. Ubicaciones
+INSERT INTO ubicacion (nombre, descripcion) VALUES
+('Laboratorio de Escuela', 'Estanterías y armarios del laboratorio principal'),
+('Depósito de Reactivos', 'Zona de almacenamiento seguro para materiales químicos');
+
+-- 3. Categorías
+INSERT INTO categoria (nombre, descripcion) VALUES
+('Material de Vidrio', 'Tubos de ensaye, vasos de precipitado, probetas, etc.'),
+('Aparatos y Equipos', 'Equipos de trabajo, instrumentos de medición y herramientas'),
+('Reactivos Químicos', 'Sustancias y compuestos químicos con indicación de peligrosidad'),
+('Insumos Generales', 'Materiales de consumo general para las prácticas');
+
+-- 4. Usuarios
+INSERT INTO usuario (nombre, apellido, email, contrasena, id_rol) VALUES
+('Lionel', 'García', 'lionel.garcia@escuela.edu', 'hash_pass_lionel', 1),
+('Axel', 'Jerez', 'axel.jerez@escuela.edu', 'hash_pass_axel', 1),
+('Víctor', 'Cáceres', 'victor.caceres@escuela.edu', 'hash_pass_victor', 1),
+('Docente', 'Técnico', 'docente.tecnico@escuela.edu', 'hash_pass_docente', 2);
+
+-- 5. Materiales
+INSERT INTO material (nombre, descripcion, cantidad, estado, id_categoria, id_ubicacion) VALUES
+('Vaso de Precipitado 250ml', 'Vidrio borosilicato, tamaño 250ml', 15, 'Disponible', 1, 1),
+('Probeta Graduada 100ml', 'Vidrio transparente graduado, tamaño 100ml', 10, 'Disponible', 1, 1),
+('Ácido Clorhídrico (HCl)', 'Código: REAC-001 | Peligrosidad: Alta (Corrosivo)', 5, 'Disponible', 3, 2),
+('Microscopio Óptico', 'Marca: Olympus | Equipo de trabajo por grupo', 8, 'Disponible', 2, 1),
+('Papel Filtro', 'Insumo general de laboratorio paquete x100', 20, 'Disponible', 4, 1);
+
+-- 6. Solicitudes
+INSERT INTO solicitud (estado, observaciones, id_usuario) VALUES
+('Pendiente', 'Solicitud de materiales de vidrio y reactivos para práctica de química', 4);
+
+-- 7. Detalle de Solicitud
+INSERT INTO detalle_solicitud (id_solicitud, id_material, cantidad_solicitada, cantidad_entregada) VALUES
+(1, 1, 4, 0),
+(1, 3, 1, 0);
+
+-- 8. Movimientos
+INSERT INTO movimiento (tipo_movimiento, cantidad, observaciones, id_material, id_usuario) VALUES
+('Ingreso Inicial', 15, 'Carga inicial del inventario digitalizado', 1, 1),
+('Ingreso Inicial', 5, 'Registro de reactivos en depósito seguro', 3, 2);
+
+-- 9. Reportes
+INSERT INTO reporte (tipo_problema, descripcion, estado, id_usuario, id_material) VALUES
+('Inspección Periódica', 'Insumo próximo a agotarse, requiere reposición previa', 'Abierto', 4, 3);
+
+-- 10. Notificaciones
+INSERT INTO notificacion (mensaje, estado, id_usuario) VALUES
+('Bienvenido al sistema de Inventario del Laboratorio. Recuerda mantener el orden e higiene.', 'No leído', 4);
+
+-- ELIMINACIÓN DE DATOS
+DELETE FROM rol;
