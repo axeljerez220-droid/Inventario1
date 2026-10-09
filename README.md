@@ -1,6 +1,6 @@
 # Inventario de Laboratorio — Backend
 
-Backend desarrollado como proyecto educativo para 7.º año de la Tecnicatura en Programación.
+Proyecto Institucional,
 
 El proyecto implementa el backend de una aplicación de inventario de laboratorio, utilizando JavaScript, Node.js y Express, y aplicando el patrón de arquitectura MVC (Modelo - Vista - Controlador).
 
