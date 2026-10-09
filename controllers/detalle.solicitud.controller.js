@@ -1,4 +1,4 @@
-const DetalleSolicitudModel = require('../models/detalle_solicitud.model');
+const DetalleSolicitudModel = require('../models/detalle.solicitud.model');
 
 class DetalleSolicitudController {
   static async getAll(req, res) {
