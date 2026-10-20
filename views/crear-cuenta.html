@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro · Laboratorio</title>
+    <link rel="stylesheet" href="estilos.css" />
+    <!-- Enlace a Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1><i class="fas fa-flask"></i> Inventario · Laboratorio</h1>
+        <a href="index.html" class="btn-back">
+            <i class="fas fa-arrow-left"></i> Volver al inventario
+        </a>
+    </div>
+
+    <!-- FORMULARIO DE REGISTRO -->
+    <div class="register-section">
+        <div class="register-card">
+            <h2><i class="fas fa-user-plus"></i> Crear cuenta</h2>
+            
+            <!-- Mensaje de éxito/error (oculto por defecto) -->
+            <div id="formMessage" class="form-message">
+                <i class="fas fa-check-circle"></i> Cuenta creada exitosamente
+            </div>
+
+            <form id="registerForm" action="#" method="post">
+                <div class="form-row">
+                    <!-- Nombre -->
+                    <div class="form-group">
+                        <label for="nombre"><i class="fas fa-user"></i> Nombre</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fas fa-user-circle"></i>
+                            <input type="text" id="nombre" placeholder="Ej: Juan" required />
+                        </div>
+                    </div>
+
+                    <!-- Apellido -->
+                    <div class="form-group">
+                        <label for="apellido"><i class="fas fa-user"></i> Apellido</label>
+                        <div class="input-icon-wrapper">
+                            <i class="fas fa-user-circle"></i>
+                            <input type="text" id="apellido" placeholder="Ej: Pérez" required />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email"><i class="fas fa-envelope"></i> Correo electrónico</label>
+                    <div class="input-icon-wrapper">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" placeholder="ejemplo@laboratorio.edu" required />
+                    </div>
+                </div>
+
+                <!-- Teléfono -->
+                <div class="form-group">
+                    <label for="telefono"><i class="fas fa-phone"></i> Teléfono</label>
+                    <div class="input-icon-wrapper">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="telefono" placeholder="Ej: 555-1234" />
+                    </div>
+                </div>
+
+                <!-- Rol / Tipo de usuario -->
+                <div class="form-group">
+                    <label for="rol"><i class="fas fa-user-tag"></i> Tipo de usuario</label>
+                    <div class="input-icon-wrapper">
+                        <i class="fas fa-user-tag"></i>
+                        <select id="rol" required>
+                            <option value="">Selecciona un rol...</option>
+                            <option value="profesor">Profesor</option>
+                            <option value="estudiante">Estudiante</option>
+                            <option value="tecnico">Técnico de laboratorio</option>
+                            <option value="administrador">Administrador</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Contraseña -->
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock"></i> Contraseña</label>
+                    <div class="input-icon-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Mínimo 8 caracteres" required />
+                    </div>
+                    <div class="password-requirements">
+                        <i class="fas fa-circle" style="color:#64748b; font-size:0.5rem;"></i>
+                        Mínimo 8 caracteres
+                        <i class="fas fa-circle" style="color:#64748b; font-size:0.5rem; margin-left:0.8rem;"></i>
+                        Al menos una mayúscula
+                        <i class="fas fa-circle" style="color:#64748b; font-size:0.5rem; margin-left:0.8rem;"></i>
+                        Al menos un número
+                    </div>
+                </div>
+
+                <!-- Confirmar contraseña -->
+                <div class="form-group">
+                    <label for="confirm_password"><i class="fas fa-lock"></i> Confirmar contraseña</label>
+                    <div class="input-icon-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="confirm_password" placeholder="Repite tu contraseña" required />
+                    </div>
+                </div>
+
+                <!-- Términos y condiciones -->
+                <div class="terms-check">
+                    <input type="checkbox" id="terms" required />
+                    <label for="terms">
+                        Acepto los <a href="#">términos y condiciones</a> y la 
+                        <a href="#">política de privacidad</a> del laboratorio.
+                    </label>
+                </div>
+
+                <!-- Botón de registro -->
+                <button type="submit" class="btn-register">
+                    <i class="fas fa-user-plus"></i> Registrarse
+                </button>
+
+                <div class="register-footer-text">
+                    ¿Ya tienes cuenta? <a href="inicio-sesion.html">Inicia sesión aquí</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer-note">
+        <span><i class="fas fa-code"></i> Desarrollado por: Lionel G. · Axel J. · Víctor C.  |  Técnicos en Programación</span>
+        <span><i class="fas fa-database"></i> MySQL · PHP · HTML5/CSS  |  <i class="fas fa-clock"></i> 7 meses</span>
+        <span><i class="fas fa-school"></i> Proyecto integrador · 2026</span>
+    </div>
+
+</div> <!-- fin container -->
+
+<script>
+    // Validación básica de contraseñas (coincidencia)
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const password = document.getElementById('password').value;
+        const confirm = document.getElementById('confirm_password').value;
+        const messageDiv = document.getElementById('formMessage');
+        
+        // Limpiar mensajes previos
+        messageDiv.className = 'form-message';
+        
+        // Validar que las contraseñas coincidan
+        if (password !== confirm) {
+            messageDiv.className = 'form-message error';
+            messageDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Las contraseñas no coinciden.';
+            messageDiv.style.display = 'block';
+            return;
+        }
+        
+        // Validar longitud mínima
+        if (password.length < 8) {
+            messageDiv.className = 'form-message error';
+            messageDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> La contraseña debe tener al menos 8 caracteres.';
+            messageDiv.style.display = 'block';
+            return;
+        }
+        
+        // Validar términos
+        if (!document.getElementById('terms').checked) {
+            messageDiv.className = 'form-message error';
+            messageDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Debes aceptar los términos y condiciones.';
+            messageDiv.style.display = 'block';
+            return;
+        }
+        
+        // Simular registro exitoso
+        messageDiv.className = 'form-message success';
+        messageDiv.innerHTML = '<i class="fas fa-check-circle"></i> ¡Cuenta creada exitosamente! Redirigiendo...';
+        messageDiv.style.display = 'block';
+        
+        // Redirigir después de 2 segundos (simulación)
+        setTimeout(function() {
+            window.location.href = 'index.html';
+        }, 2000);
+    });
+</script>
+
+</body>
+</html>

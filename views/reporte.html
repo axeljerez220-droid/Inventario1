@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte del inventario</title>
+    <link rel="stylesheet" href="estilos.css">
+    <!-- Enlace a Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1><i class="fas fa-flask"></i> Inventario · Laboratorio</h1>
+        <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Volver al inventario</a>
+    </div>
+
+    <!-- CONTENIDO DE LA PÁGINA -->
+    <div class="page-content">
+        <h2><i class="fas fa-file-pdf"></i> Reporte del inventario</h2>
+        <p>Resumen general de los materiales y equipos registrados.</p>
+
+        <div class="form-card">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Categoría</th>
+                        <th>Cantidad registrada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Material de vidrio y aparatos</td>
+                        <td>35</td>
+                    </tr>
+                    <tr>
+                        <td>Reactivos</td>
+                        <td>24</td>
+                    </tr>
+                    <tr>
+                        <td>Equipos de trabajo</td>
+                        <td>12</td>
+                    </tr>
+                    <tr>
+                        <td>Insumos generales</td>
+                        <td>42</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button class="page-button" onclick="window.print()">
+                <i class="fas fa-print"></i> Imprimir / Guardar como PDF
+            </button>
+        </div>
+    </div>
+
+    <!-- FOOTER / DATOS DEL PROYECTO -->
+    <div class="footer-note">
+        <span><i class="fas fa-code"></i> Desarrollado por: Lionel G. · Axel J. · Víctor C.</span>
+        <span><i class="fas fa-database"></i> MySQL · PHP · HTML5/CSS</span>
+        <span><i class="fas fa-school"></i> Proyecto integrador · 2026</span>
+    </div>
+
+</div>
+</body>
+</html>

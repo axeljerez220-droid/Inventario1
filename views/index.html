@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventario del Laboratorio · Gestión</title>
+    <link rel="stylesheet" href="estilos.css" />
+    <!-- Enlace a Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1><i class="fas fa-flask"></i> Inventario · Laboratorio</h1>
+        <a href="inicio-sesion.html" class="btn-login">
+            <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+        </a>  
+    </div>
+
+    <!-- RESUMEN ESTADÍSTICO -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-boxes"></i></div>
+            <div class="stat-info">
+                <h4>Material total</h4>
+                <div class="number">78</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-vial"></i></div>
+            <div class="stat-info">
+                <h4>Reactivos</h4>
+                <div class="number">24</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-microscope"></i></div>
+            <div class="stat-info">
+                <h4>Equipos</h4>
+                <div class="number">12</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-clipboard-list"></i></div>
+            <div class="stat-info">
+                <h4>Insumos</h4>
+                <div class="number">42</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CATEGORÍAS PRINCIPALES (INVENTARIO) -->
+    <div class="section-title"><i class="fas fa-tag"></i> Categorías del inventario</div>
+
+    <div class="category-grid">
+
+        <!-- 1. Material de vidrio, aparatos, insumos -->
+        <div class="category-card">
+            <h3><i class="fas fa-flask"></i> Material de vidrio & aparatos</h3>
+            <ul class="item-list">
+                <li><span class="item-name"><i class="fas fa-circle icon-vidrio"></i> Probeta 250 ml</span> <span class="item-detail">6 uds</span></li>
+                <li><span class="item-name"><i class="fas fa-circle icon-vidrio"></i> Matraz Erlenmeyer 500 ml</span> <span class="item-detail">4 uds</span></li>
+                <li><span class="item-name"><i class="fas fa-circle icon-vidrio"></i> Pipeta volumétrica 10 ml</span> <span class="item-detail">8 uds</span></li>
+                <li><span class="item-name"><i class="fas fa-circle icon-vidrio"></i> Vaso precipitado 100 ml</span> <span class="item-detail">12 uds</span></li>
+                <li><span class="item-name"><i class="fas fa-circle icon-vidrio"></i> Termómetro -10 a 110 °C</span> <span class="item-detail">3 uds</span></li>
+                <li><span class="item-name"><i class="fas fa-circle icon-vidrio"></i> Balanza granataria 300 g</span> <span class="item-detail">2 uds</span></li>
+            </ul>
+            <div class="extra-link"><a href="material-vidrio.html">Ver más <i class="fas fa-arrow-right"></i></a></div>
+        </div>
+
+        <!-- 2. Reactivos + peligrosidad -->
+        <div class="category-card">
+            <h3><i class="fas fa-skull-crossbones"></i> Reactivos</h3>
+            <ul class="item-list">
+                <li><span class="item-name"><i class="fas fa-biohazard icon-peligro-alto"></i> Ácido sulfúrico H₂SO₄</span> <span class="badge-peligro">corrosivo</span></li>
+                <li><span class="item-name"><i class="fas fa-biohazard icon-peligro-medio"></i> Etanol 96°</span> <span class="badge-peligro">inflamable</span></li>
+                <li><span class="item-name"><i class="fas fa-biohazard icon-peligro-neutro"></i> Agua destilada</span> <span class="badge-peligro badge-neutro">—</span></li>
+                <li><span class="item-name"><i class="fas fa-biohazard icon-peligro-medio"></i> Acetona</span> <span class="badge-peligro">inflamable</span></li>
+                <li><span class="item-name"><i class="fas fa-biohazard icon-peligro-alto"></i> HCl 1M</span> <span class="badge-peligro">corrosivo</span></li>
+                <li><span class="item-name"><i class="fas fa-biohazard icon-peligro-neutro"></i> NaOH 0.5M</span> <span class="badge-peligro badge-neutro">base</span></li>
+            </ul>
+            <div class="extra-link"><a href="reactivos.html">Ver más <i class="fas fa-arrow-right"></i></a></div>
+        </div>
+
+        <!-- 3. Equipos de trabajo (marca, nombre) -->
+        <div class="category-card">
+            <h3><i class="fas fa-microscope"></i> Equipos de trabajo</h3>
+            <ul class="item-list">
+                <li><span class="item-name"><i class="fas fa-microscope"></i> Microscopio binocular</span> <span class="equipo-marca">Motic · 4 uds</span></li>
+                <li><span class="item-name"><i class="fas fa-thermometer-half"></i> Estufa de cultivo</span> <span class="equipo-marca">Memmert · 1</span></li>
+                <li><span class="item-name"><i class="fas fa-syringe"></i> Centrífuga 4000 rpm</span> <span class="equipo-marca">Eppendorf · 2</span></li>
+                <li><span class="item-name"><i class="fas fa-weight-scale"></i> Balanza analítica 0.1 mg</span> <span class="equipo-marca">Sartorius · 1</span></li>
+                <li><span class="item-name"><i class="fas fa-water"></i> Destilador automático</span> <span class="equipo-marca">GFL · 1</span></li>
+            </ul>
+            <div class="extra-link"><a href="equipos.html">Ver más <i class="fas fa-arrow-right"></i></a></div>
+        </div>
+
+        <!-- 4. Insumos generales (adicional) -->
+        <div class="category-card">
+            <h3><i class="fas fa-box-open"></i> Insumos generales</h3>
+            <ul class="item-list">
+                <li><span class="item-name"><i class="fas fa-hand-holding-heart"></i> Guantes de nitrilo (M)</span> <span class="badge-stock">120 uds</span></li>
+                <li><span class="item-name"><i class="fas fa-eye"></i> Gafas de seguridad</span> <span class="badge-stock">15 uds</span></li>
+                <li><span class="item-name"><i class="fas fa-vial"></i> Pipetas Pasteur</span> <span class="badge-stock">40 uds</span></li>
+                <li><span class="item-name"><i class="fas fa-tint"></i> Papel indicador pH</span> <span class="badge-stock">8 rollos</span></li>
+                <li><span class="item-name"><i class="fas fa-wind"></i> Mascarillas KN95</span> <span class="badge-stock">30 uds</span></li>
+            </ul>
+            <div class="extra-link"><a href="insumos.html">Ver más <i class="fas fa-arrow-right"></i></a></div>
+        </div>
+    </div>
+
+    <!-- BARRA DE ACCIONES RÁPIDAS + BÚSQUEDA (simulación) -->
+    <div class="actions-bar">
+        <div class="btn-group">
+            <a href="agregar-item.html" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Agregar ítem</a>
+            <a href="modificar-item.html" class="btn btn-outline"><i class="fas fa-edit"></i> Modificar</a>
+            <a href="eliminar-item.html" class="btn btn-outline"><i class="fas fa-trash-alt"></i> Eliminar</a>
+            <a href="reporte.html" class="btn btn-outline"><i class="fas fa-file-pdf"></i> Reporte</a>
+        </div>
+        <div class="search-box">
+            <i class="fas fa-search icon-search"></i>
+            <input type="text" placeholder="Buscar en inventario..." value="material" />
+            <button><i class="fas fa-arrow-right"></i></button>
+        </div>
+    </div>
+
+    <!-- PEQUEÑA SECCIÓN DE CONTROL Y MANTENIMIENTO -->
+    <div class="control-panel">
+        <div class="control-item">
+            <i class="fas fa-clipboard-check control-icon"></i>
+            <div><strong>Protocolo de uso</strong><br><span class="control-text">Orden, higiene e inspección periódica</span></div>
+        </div>
+        <div class="control-item">
+            <i class="fas fa-calendar-alt control-icon"></i>
+            <div><strong>Última actualización</strong><br><span class="control-text">14 de julio 2026 · 10:30</span></div>
+        </div>
+        <div class="control-item">
+            <i class="fas fa-users control-icon"></i>
+            <div><strong>Responsable</strong><br><span class="control-text">Prof. Técnico · Lab. Química</span></div>
+        </div>
+    </div>
+
+    <!-- FOOTER / DATOS DEL PROYECTO -->
+    <div class="footer-note">
+        <span><i class="fas fa-code"></i> Desarrollado por: Lionel G. · Axel J. · Víctor C.  |  Técnicos en Programación</span>
+        <span><i class="fas fa-database"></i> MySQL · PHP · HTML5/CSS  |  <i class="fas fa-clock"></i> 7 meses</span>
+        <span><i class="fas fa-school"></i> Proyecto integrador · 2026</span>
+    </div>
+
+</div> <!-- fin container -->
+</body>
+</html>
