@@ -54,5 +54,3 @@ INSERT INTO reporte (tipo_problema, descripcion, estado, id_usuario, id_material
 INSERT INTO notificacion (mensaje, estado, id_usuario) VALUES
 ('Bienvenido al sistema de Inventario del Laboratorio. Recuerda mantener el orden e higiene.', 'No leído', 4);
 
--- ELIMINACIÓN DE DATOS
-DELETE FROM rol;

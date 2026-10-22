@@ -105,4 +105,4 @@ class MaterialController {
   }
 }
 
-module.exports = MaterialController;;
+module.exports = MaterialController;
