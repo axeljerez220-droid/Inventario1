@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 
 const express = require('express');
 const cors = require('cors');
@@ -14,6 +16,7 @@ const notificacionRoutes = require('./routes/notificacion.routes');
 const reporteRoutes = require('./routes/reporte.routes');
 const rolRoutes = require('./routes/rol.routes');
 const ubicacionRoutes = require('./routes/ubicacion.routes');
+const authRoutes = require('./routes/auth.routes');
 
 const app = express();
 
@@ -32,6 +35,7 @@ app.use('/api/notificaciones', notificacionRoutes);
 app.use('/api/reportes', reporteRoutes);
 app.use('/api/roles', rolRoutes);
 app.use('/api/ubicaciones', ubicacionRoutes);
+app.use('/api/auth', authRoutes);
 
 // Ruta principal
 app.get('/', (req, res) => {
