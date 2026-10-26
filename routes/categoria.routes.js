@@ -1,12 +1,35 @@
+
 const { Router } = require('express');
 const CategoriaController = require('../controllers/categoria.controller');
+const verificarToken = require('../middleware/authMiddleware');
+const verificarRol = require('../middleware/rolMiddleware');
 
 const router = Router();
 
-router.get('/', CategoriaController.getAll);
-router.get('/:id', CategoriaController.getById);
-router.post('/', CategoriaController.create);
-router.put('/:id', CategoriaController.update);
-router.delete('/:id', CategoriaController.delete);
+// Consultar categorías: requiere iniciar sesión
+router.get('/', verificarToken, CategoriaController.getAll);
+router.get('/:id', verificarToken, CategoriaController.getById);
+
+// Administrar categorías: solamente Administrador
+router.post(
+    '/',
+    verificarToken,
+    verificarRol('Administrador'),
+    CategoriaController.create
+);
+
+router.put(
+    '/:id',
+    verificarToken,
+    verificarRol('Administrador'),
+    CategoriaController.update
+);
+
+router.delete(
+    '/:id',
+    verificarToken,
+    verificarRol('Administrador'),
+    CategoriaController.delete
+);
 
 module.exports = router;

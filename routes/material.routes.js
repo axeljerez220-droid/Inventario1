@@ -1,15 +1,22 @@
 
-
 const { Router } = require('express');
 const MaterialController = require('../controllers/material.controller');
+const verificarToken = require('../middleware/authMiddleware');
+const verificarRol = require('../middleware/rolMiddleware');
 
 const router = Router();
 
-// Consultar materiales
-router.get('/', MaterialController.getAll);
-router.get('/:id', MaterialController.getById);
+// Consultar materiales: requiere iniciar sesión
+router.get('/', verificarToken, MaterialController.getAll);
+router.get('/:id', verificarToken, MaterialController.getById);
 
-// Registrar un material
-router.post('/', MaterialController.create);
+// Registrar materiales: requiere iniciar sesión como Administrador
+router.post(
+    '/',
+    verificarToken,
+    verificarRol('Administrador'),
+    MaterialController.create
+);
 
 module.exports = router;
+
