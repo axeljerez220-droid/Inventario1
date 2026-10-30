@@ -1,19 +1,44 @@
+
 const pool = require('../config/db');
 
 class NotificacionModel {
 
-  static async getAll() {
-    const result = await pool.query(
-      'SELECT * FROM notificacion ORDER BY id_notificacion'
-    );
+  // Administrador: todas las notificaciones.
+  // Docente: solamente las propias.
+  static async getAll(id_usuario = null) {
+    let query = `
+      SELECT *
+      FROM notificacion
+    `;
+
+    const params = [];
+
+    if (id_usuario !== null) {
+      query += ' WHERE id_usuario = $1';
+      params.push(id_usuario);
+    }
+
+    query += ' ORDER BY id_notificacion';
+
+    const result = await pool.query(query, params);
     return result.rows;
   }
 
-  static async getById(id) {
-    const result = await pool.query(
-      'SELECT * FROM notificacion WHERE id_notificacion = $1',
-      [id]
-    );
+  static async getById(id, id_usuario = null) {
+    let query = `
+      SELECT *
+      FROM notificacion
+      WHERE id_notificacion = $1
+    `;
+
+    const params = [id];
+
+    if (id_usuario !== null) {
+      query += ' AND id_usuario = $2';
+      params.push(id_usuario);
+    }
+
+    const result = await pool.query(query, params);
     return result.rows[0];
   }
 
@@ -24,17 +49,28 @@ class NotificacionModel {
        RETURNING *`,
       [mensaje, estado, id_usuario]
     );
+
     return result.rows[0];
   }
 
-  static async update(id, estado) {
-    const result = await pool.query(
-      `UPDATE notificacion
-       SET estado = $1
-       WHERE id_notificacion = $2
-       RETURNING *`,
-      [estado, id]
-    );
+  // Actualizar solamente una notificación del usuario indicado.
+  static async update(id, estado, id_usuario = null) {
+    let query = `
+      UPDATE notificacion
+      SET estado = $1
+      WHERE id_notificacion = $2
+    `;
+
+    const params = [estado, id];
+
+    if (id_usuario !== null) {
+      query += ' AND id_usuario = $3';
+      params.push(id_usuario);
+    }
+
+    query += ' RETURNING *';
+
+    const result = await pool.query(query, params);
     return result.rows[0];
   }
 
@@ -45,6 +81,7 @@ class NotificacionModel {
        RETURNING *`,
       [id]
     );
+
     return result.rows[0];
   }
 }

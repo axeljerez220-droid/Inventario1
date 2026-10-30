@@ -6,11 +6,11 @@ const verificarRol = require('../middleware/rolMiddleware');
 
 const router = Router();
 
-// Consultar materiales: requiere iniciar sesión
+// Consultar materiales: requiere iniciar sesión.
 router.get('/', verificarToken, MaterialController.getAll);
 router.get('/:id', verificarToken, MaterialController.getById);
 
-// Registrar materiales: requiere iniciar sesión como Administrador
+// Registrar materiales: solo Administrador.
 router.post(
     '/',
     verificarToken,
@@ -18,5 +18,20 @@ router.post(
     MaterialController.create
 );
 
-module.exports = router;
+// Editar materiales: solo Administrador.
+router.put(
+    '/:id',
+    verificarToken,
+    verificarRol('Administrador'),
+    MaterialController.update
+);
 
+// Eliminar materiales: solo Administrador.
+router.delete(
+    '/:id',
+    verificarToken,
+    verificarRol('Administrador'),
+    MaterialController.delete
+);
+
+module.exports = router;

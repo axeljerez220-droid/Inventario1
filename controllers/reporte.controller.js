@@ -1,10 +1,16 @@
+
 const ReporteModel = require('../models/reporte.model');
 
 class ReporteController {
+
   static async getAll(req, res) {
     try {
-      const data = await ReporteModel.getAll();
+      const esAdministrador = req.usuario.rol === 'Administrador';
+      const id_usuario = esAdministrador ? null : req.usuario.id_usuario;
+
+      const data = await ReporteModel.getAll(id_usuario);
       res.json(data);
+
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
@@ -12,9 +18,20 @@ class ReporteController {
 
   static async getById(req, res) {
     try {
-      const data = await ReporteModel.getById(req.params.id);
-      if (!data) return res.status(404).json({ message: 'No encontrado' });
+      const esAdministrador = req.usuario.rol === 'Administrador';
+      const id_usuario = esAdministrador ? null : req.usuario.id_usuario;
+
+      const data = await ReporteModel.getById(
+        req.params.id,
+        id_usuario
+      );
+
+      if (!data) {
+        return res.status(404).json({ message: 'No encontrado' });
+      }
+
       res.json(data);
+
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
@@ -22,9 +39,21 @@ class ReporteController {
 
   static async create(req, res) {
     try {
-      const { tipo_problema, descripcion, estado, id_usuario, id_material } = req.body;
-      const data = await ReporteModel.create(tipo_problema, descripcion, estado, id_usuario, id_material);
+      const { tipo_problema, descripcion, estado, id_material } = req.body;
+
+      // El usuario se obtiene del token JWT.
+      const id_usuario = req.usuario.id_usuario;
+
+      const data = await ReporteModel.create(
+        tipo_problema,
+        descripcion,
+        estado,
+        id_usuario,
+        id_material
+      );
+
       res.status(201).json(data);
+
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
@@ -33,9 +62,20 @@ class ReporteController {
   static async update(req, res) {
     try {
       const { tipo_problema, descripcion, estado } = req.body;
-      const data = await ReporteModel.update(req.params.id, tipo_problema, descripcion, estado);
-      if (!data) return res.status(404).json({ message: 'No encontrado' });
+
+      const data = await ReporteModel.update(
+        req.params.id,
+        tipo_problema,
+        descripcion,
+        estado
+      );
+
+      if (!data) {
+        return res.status(404).json({ message: 'No encontrado' });
+      }
+
       res.json(data);
+
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
@@ -44,8 +84,13 @@ class ReporteController {
   static async delete(req, res) {
     try {
       const data = await ReporteModel.delete(req.params.id);
-      if (!data) return res.status(404).json({ message: 'No encontrado' });
+
+      if (!data) {
+        return res.status(404).json({ message: 'No encontrado' });
+      }
+
       res.json({ message: 'Eliminado con éxito', data });
+
     } catch (err) {
       res.status(500).json({ error: err.message });
     }

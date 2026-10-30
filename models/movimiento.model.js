@@ -1,43 +1,84 @@
+
 const pool = require('../config/db');
 
 class MovimientoModel {
-  static async getAll() {
-    const query = `
-      SELECT mov.id_movimiento, mov.tipo_movimiento, mov.fecha, mov.cantidad, mov.observaciones,
-             m.nombre AS material, u.nombre || ' ' || u.apellido AS usuario
+
+  // Administrador: todos los movimientos.
+  // Docente: solamente los propios.
+  static async getAll(id_usuario = null) {
+    let query = `
+      SELECT mov.id_movimiento, mov.tipo_movimiento,
+             mov.fecha, mov.cantidad, mov.observaciones,
+             m.nombre AS material,
+             u.nombre || ' ' || u.apellido AS usuario
       FROM movimiento mov
       JOIN material m ON mov.id_material = m.id_material
       JOIN usuario u ON mov.id_usuario = u.id_usuario
-      ORDER BY mov.id_movimiento ASC;
     `;
-    const { rows } = await pool.query(query);
+
+    const params = [];
+
+    if (id_usuario !== null) {
+      query += ' WHERE mov.id_usuario = $1';
+      params.push(id_usuario);
+    }
+
+    query += ' ORDER BY mov.id_movimiento ASC';
+
+    const { rows } = await pool.query(query, params);
     return rows;
   }
 
-  static async getById(id) {
-    const query = `
-      SELECT mov.id_movimiento, mov.tipo_movimiento, mov.fecha, mov.cantidad, mov.observaciones,
-             m.nombre AS material, u.nombre || ' ' || u.apellido AS usuario
+  static async getById(id, id_usuario = null) {
+    let query = `
+      SELECT mov.id_movimiento, mov.tipo_movimiento,
+             mov.fecha, mov.cantidad, mov.observaciones,
+             m.nombre AS material,
+             u.nombre || ' ' || u.apellido AS usuario
       FROM movimiento mov
       JOIN material m ON mov.id_material = m.id_material
       JOIN usuario u ON mov.id_usuario = u.id_usuario
-      WHERE mov.id_movimiento = $1;
+      WHERE mov.id_movimiento = $1
     `;
-    const { rows } = await pool.query(query, [id]);
+
+    const params = [id];
+
+    if (id_usuario !== null) {
+      query += ' AND mov.id_usuario = $2';
+      params.push(id_usuario);
+    }
+
+    const { rows } = await pool.query(query, params);
     return rows[0];
   }
 
   static async create(tipo_movimiento, cantidad, observaciones, id_material, id_usuario) {
     const query = `
-      INSERT INTO movimiento (tipo_movimiento, cantidad, observaciones, id_material, id_usuario)
-      VALUES ($1, $2, $3, $4, $5) RETURNING *;
+      INSERT INTO movimiento
+        (tipo_movimiento, cantidad, observaciones, id_material, id_usuario)
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING *;
     `;
-    const { rows } = await pool.query(query, [tipo_movimiento, cantidad, observaciones, id_material, id_usuario]);
+
+    const { rows } = await pool.query(query, [
+      tipo_movimiento,
+      cantidad,
+      observaciones,
+      id_material,
+      id_usuario
+    ]);
+
     return rows[0];
   }
 
   static async delete(id) {
-    const { rows } = await pool.query('DELETE FROM movimiento WHERE id_movimiento = $1 RETURNING *;', [id]);
+    const query = `
+      DELETE FROM movimiento
+      WHERE id_movimiento = $1
+      RETURNING *;
+    `;
+
+    const { rows } = await pool.query(query, [id]);
     return rows[0];
   }
 }
